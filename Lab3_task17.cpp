@@ -26,6 +26,7 @@ struct Tree
     int level;
     Tree* father = nullptr;
     std::vector<Tree*> sons;
+    bool isFirst = false;
 };
 
 int ReadFromFile(std::ifstream& inFile, Tree*& root);
@@ -274,9 +275,9 @@ Tree* FindMostNewFile(Tree*& root, std::string& name, Time& mostNewTime)
     for (Tree* son: root->sons) 
     {
         Tree* mostNewFile = FindMostNewFile(son, name, mostNewTime);
-        if (mostNewFile->name == name && CompareTime(mostNewFile->time, mostNewTime)) 
-        {   
-            mostNewTime = mostNewFile->time;
+        if (mostNewFile->name == name && CompareTime(mostNewFile->time, mostNewTime))
+        {
+            return mostNewFile;
         }
     }
 
@@ -296,11 +297,11 @@ void DeleteFilesCopy(Tree*& root, std::string name, Time& mostNewTime)
         DeleteFilesCopy(root->sons[i], name, mostNewTime);
     }
     
-    if (root->name == name && CompareTime(mostNewTime, root->time))
+    if (root->name == name && root->isFirst == false)
     {   
         Tree* fatherCopy = root->father;
 
-        for(int i = 0; i < fatherCopy->sons.size(); i++)
+        for (int i = 0; i < fatherCopy->sons.size(); i++)
         {
             if (fatherCopy->sons[i] == root)
             {
@@ -404,12 +405,12 @@ int MenuInput(Tree*& root)
         std::cout << "Введите имя файла для удаления" << std::endl;
         std::cin >> nodeName;
         Time fileTime;
-        fileTime.day = 0;
-        fileTime.month = 0;
-        fileTime.year = 0;
+        bool isFirstFind = false;
         fileTime = FindFirstOccurrence(root, nodeName)->time;
 
-        FindMostNewFile(root, nodeName, fileTime);
+        Tree* mostNewFile = FindMostNewFile(root, nodeName, fileTime);
+
+        mostNewFile->isFirst = true;
 
         DeleteFilesCopy(root, nodeName, fileTime);
     }
