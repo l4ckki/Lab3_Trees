@@ -9,6 +9,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <unordered_map>
 #include <fstream>
 #include <Windows.h>
 
@@ -248,18 +249,48 @@ void PrintTree(Tree* root, int level)
         PrintTree(root->sons[i], level + 1);
 }
 
-Tree* FindFirstOccurrence(Tree* root, std::string& name) 
+void CountFiles(Tree* root, std::unordered_map<std::string, int>& fileCounts) 
+{    
+    if (!root) return;
+
+    fileCounts[root->name]++;
+
+    for (Tree* son : root->sons) {
+        CountFiles(son, fileCounts);
+    }
+}
+
+std::vector<std::string> FindFilesWithCopies(Tree* root) 
+{    
+    std::unordered_map<std::string, int> fileCounts;
+
+    CountFiles(root, fileCounts);
+
+    std::vector<std::string> filesWithCopies;
+    for (auto iter = fileCounts.begin(); iter != fileCounts.end(); iter++) 
+    {
+        if (iter->second > 1 && iter->first.find('.') != std::string::npos) 
+        {
+            filesWithCopies.push_back(iter->first);
+        }
+    }
+
+    return filesWithCopies;
+}
+
+
+Tree* FindFirstOccurrence(Tree* root, std::string fileName) 
 {
     if (!root) return nullptr;
 
-    if (root->name == name) 
+    if (root->name == fileName)
     {
         return root;
     }
 
-    for (Tree* son: root->sons) {
-        Tree* found = FindFirstOccurrence(son, name);
-        if (found) 
+    for (Tree* son : root->sons) {
+        Tree* found = FindFirstOccurrence(son, fileName);
+        if (found)
         {
             return found;
         }
@@ -286,7 +317,7 @@ Tree* FindMostNewFile(Tree*& root, std::string& name, Time& mostNewTime)
 
 void DeleteFilesCopy(Tree*& root, std::string name, Time& mostNewTime)
 {   
-    if (root == NULL)
+    if (!root)
     {   
         std::cout << "Дерево пустое" << std::endl;
         return;
@@ -342,7 +373,7 @@ void DeleteFilesCopy(Tree*& root, std::string name, Time& mostNewTime)
 
 void DeleteTree(Tree*& root)
 {
-    if (root == NULL)
+    if (!root)
     {
         std::cout << "Дерево пустое" << std::endl;
         return;
@@ -402,17 +433,30 @@ int MenuInput(Tree*& root)
     else if (mode == 2)
     {   
         std::string nodeName;
-        std::cout << "Введите имя файла для удаления" << std::endl;
-        std::cin >> nodeName;
-        Time fileTime;
-        bool isFirstFind = false;
-        fileTime = FindFirstOccurrence(root, nodeName)->time;
+        std::vector<Time> filesTime;
+        std::vector<std::string> filesName;
 
-        Tree* mostNewFile = FindMostNewFile(root, nodeName, fileTime);
+        filesName = FindFilesWithCopies(root);
+        
+        for (auto i : filesName)
+        {
+            filesTime.push_back(FindFirstOccurrence(root, i)->time);
+        }
 
-        mostNewFile->isFirst = true;
+        for (int i = 0; i < filesName.size(); i++)
+        {
+            Tree* mostNewFile = FindMostNewFile(root, filesName[i], filesTime[i]);
 
-        DeleteFilesCopy(root, nodeName, fileTime);
+            if (mostNewFile == root)
+            {
+                mostNewFile = FindFirstOccurrence(root, filesName[i]);
+            }
+
+            mostNewFile->isFirst = true;
+
+            DeleteFilesCopy(root, filesName[i], filesTime[i]);
+        }
+        
     }
     else if (mode == 3)
     {

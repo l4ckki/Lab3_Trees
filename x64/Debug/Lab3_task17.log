@@ -1,7 +1,7 @@
 ﻿  Lab3_task17.cpp
-D:\C_labs\Lab3_task17\Lab3_task17.cpp(153,35): warning C4267: =: преобразование из "size_t" в "int"; возможна потеря данных
-D:\C_labs\Lab3_task17\Lab3_task17.cpp(295,5): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
-D:\C_labs\Lab3_task17\Lab3_task17.cpp(325,9): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
-D:\C_labs\Lab3_task17\Lab3_task17.cpp(351,5): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
-D:\C_labs\Lab3_task17\Lab3_task17.cpp(360,9): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+D:\C_labs\Lab3_task17\Lab3_task17.cpp(154,35): warning C4267: =: преобразование из "size_t" в "int"; возможна потеря данных
+D:\C_labs\Lab3_task17\Lab3_task17.cpp(326,5): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+D:\C_labs\Lab3_task17\Lab3_task17.cpp(356,9): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+D:\C_labs\Lab3_task17\Lab3_task17.cpp(382,5): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+D:\C_labs\Lab3_task17\Lab3_task17.cpp(391,9): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
   Lab3_task17.vcxproj -> D:\C_labs\Lab3_task17\x64\Debug\Lab3_task17.exe

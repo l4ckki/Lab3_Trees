@@ -2,11 +2,17 @@ Computer
 ..diskL
 .diskC
 ..folder1
+Computer2
 ..folder2
 ....folder8
 ...ahah.txt 12.10.2024
 ...lab1.txt 13.06.2011
 ...lab2.txt 14.05.2002
+...lab2.txt 14.05.2002
+...lab2.txt 14.03.2001
+...lab1.txt 12.04.2011
+...snakeGame.cpp 12.03.2001
+...lab1.txt 13.03.2011
 ...ahah.txt 10.11.2033
 ...ahah.txt 10.11.2033
 ..folder3
@@ -14,14 +20,15 @@ Computer
 ....ahah.txt 23.12.1994
 .diskD
 ..folder4
-...karkar.txt
-...oyoy.txt
+...karkar.txt 12.12.2012
+...oyoy.txt 11.11.2011
 ..folder5
 ...ahah.txt 20.12.1987
-...dom.txt
+...dom.txt 14.12.2014
 ...ahah.txt 15.04.1995
 ...ahah.txt 23.12.1994
-..folder6
-...ahah.txt 10.11.2033
-...ahah.txt 1.12.2013
+..folder6 10.10.2010
+...folder18 12.12.2021
+....ahah.txt 10.11.2033
+....ahah.txt 1.12.2013
 .diskE
